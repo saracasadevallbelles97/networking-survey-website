@@ -11,6 +11,7 @@ A modern, responsive survey website built with Next.js and Supabase to collect d
 - 🚀 **Fast Performance**: Built with Next.js 14 and App Router
 - 🔒 **Privacy-Focused**: Anonymous responses with optional email collection
 - 📊 **Analytics Ready**: Database structure optimized for data analysis
+- 🤖 **Survey Assistant**: AI-powered help for survey questions and guidance
 
 ## Tech Stack
 
@@ -18,6 +19,7 @@ A modern, responsive survey website built with Next.js and Supabase to collect d
 - **Styling**: Tailwind CSS
 - **Database**: Supabase (PostgreSQL)
 - **Icons**: Lucide React
+- **AI**: Google Gemini API
 - **Deployment**: Vercel (recommended)
 
 ## Getting Started
@@ -66,7 +68,16 @@ Create a `.env.local` file in the root directory:
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+GEMINI_API_KEY=your_gemini_api_key
 ```
+
+### Setting up Gemini API
+
+1. Go to [Google AI Studio](https://aistudio.google.com/) or [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the Gemini API
+4. Create an API key
+5. Add the API key to your `.env.local` file as `GEMINI_API_KEY`
 
 ## Database Schema
 
@@ -91,7 +102,28 @@ The survey collects the following data:
 6. **Additional Info**: Industry and comments
 7. **Thank You**: Confirmation and next steps
 
-## Customization
+## Survey Assistant
+
+The website includes an AI-powered survey assistant to help users understand the survey and project:
+
+- **Survey Guidance**: Answers questions about survey purpose and content
+- **Privacy Information**: Explains data handling and anonymity
+- **Quick Help**: Pre-built questions for common concerns
+- **Survey Navigation**: Direct link to start the survey
+
+### Accessing the Assistant
+
+1. Navigate to `/chat` in your browser
+2. Or click "Survey Help" in the main navigation
+3. Ask questions about the survey or use the quick action buttons
+
+### Assistant Features
+
+- **Survey-specific knowledge**: Trained on survey content and purpose
+- **Privacy-focused**: Emphasizes data protection and anonymity
+- **Quick actions**: Pre-built questions for common topics
+- **Survey integration**: Direct link to start the survey
+- **Mobile responsive**: Optimized for all screen sizes
 
 ### Adding New Questions
 

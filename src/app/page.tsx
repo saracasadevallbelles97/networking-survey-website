@@ -22,6 +22,9 @@ export default function HomePage() {
               <a href="#benefits" className="text-blue-100 hover:text-white transition-colors duration-200">
                 Benefits
               </a>
+              <Link href="/chat" className="text-blue-100 hover:text-white transition-colors duration-200">
+                Survey Help
+              </Link>
             </nav>
           </div>
         </div>
