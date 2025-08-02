@@ -30,26 +30,26 @@ export default function QuestionField({ question, value, onChange, error }: Ques
           <textarea
             value={value || ''}
             onChange={(e) => handleChange(e.target.value)}
-            className="input-field min-h-[100px] resize-vertical"
+            className="input-field min-h-[120px] resize-vertical"
             placeholder="Enter your answer..."
-            rows={4}
+            rows={5}
           />
         )
 
       case 'radio':
         return (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {question.options?.map((option) => (
-              <label key={option} className="flex items-center space-x-3 cursor-pointer">
+              <label key={option} className="flex items-center space-x-4 cursor-pointer group hover:bg-blue-50 p-4 rounded-xl transition-all duration-200">
                 <input
                   type="radio"
                   name={question.id}
                   value={option}
                   checked={value === option}
                   onChange={(e) => handleChange(e.target.value)}
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
+                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300"
                 />
-                <span className="text-gray-700">{option}</span>
+                <span className="text-gray-700 group-hover:text-gray-900 font-medium">{option}</span>
               </label>
             ))}
           </div>
@@ -57,9 +57,9 @@ export default function QuestionField({ question, value, onChange, error }: Ques
 
       case 'checkbox':
         return (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {question.options?.map((option) => (
-              <label key={option} className="flex items-center space-x-3 cursor-pointer">
+              <label key={option} className="flex items-center space-x-4 cursor-pointer group hover:bg-blue-50 p-4 rounded-xl transition-all duration-200">
                 <input
                   type="checkbox"
                   value={option}
@@ -72,9 +72,9 @@ export default function QuestionField({ question, value, onChange, error }: Ques
                       handleChange(currentValues.filter((v) => v !== option))
                     }
                   }}
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
-                <span className="text-gray-700">{option}</span>
+                <span className="text-gray-700 group-hover:text-gray-900 font-medium">{option}</span>
               </label>
             ))}
           </div>
@@ -102,14 +102,16 @@ export default function QuestionField({ question, value, onChange, error }: Ques
   }
 
   return (
-    <div className="space-y-3">
-      <label className="block text-lg font-medium text-gray-900">
+    <div className="space-y-4">
+      <label className="block text-xl font-semibold winter-text">
         {question.question}
-        {question.required && <span className="text-red-500 ml-1">*</span>}
+        {question.required && <span className="text-red-500 ml-2">*</span>}
       </label>
       {renderField()}
       {error && (
-        <p className="text-red-600 text-sm">{error}</p>
+        <p className="text-red-600 text-sm font-medium bg-red-50 p-3 rounded-lg border border-red-200">
+          {error}
+        </p>
       )}
     </div>
   )

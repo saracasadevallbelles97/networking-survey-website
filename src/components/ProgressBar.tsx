@@ -7,18 +7,18 @@ export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProp
   const progress = (currentStep / totalSteps) * 100
 
   return (
-    <div className="w-full mb-8">
-      <div className="flex justify-between items-center mb-2">
-        <span className="text-sm font-medium text-gray-700">
+    <div className="w-full mb-10">
+      <div className="flex justify-between items-center mb-4">
+        <span className="text-lg font-semibold winter-text">
           Step {currentStep} of {totalSteps}
         </span>
-        <span className="text-sm text-gray-500">
+        <span className="text-lg font-medium text-blue-600">
           {Math.round(progress)}% Complete
         </span>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-2">
+      <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner">
         <div 
-          className="bg-primary-600 h-2 rounded-full transition-all duration-300 ease-in-out"
+          className="bg-gradient-to-r from-blue-600 to-indigo-600 h-3 rounded-full transition-all duration-500 ease-out shadow-lg"
           style={{ width: `${progress}%` }}
         />
       </div>

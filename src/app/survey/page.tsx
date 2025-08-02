@@ -6,7 +6,7 @@ import ProgressBar from '@/components/ProgressBar'
 import QuestionField from '@/components/QuestionField'
 import { SurveyFormData, SurveyStep } from '@/types/survey'
 import { supabase } from '@/lib/supabase'
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Snowflake, Sparkles } from 'lucide-react'
 
 const surveySteps: SurveyStep[] = [
   {
@@ -38,7 +38,7 @@ const surveySteps: SurveyStep[] = [
       },
       {
         id: 'experience_level',
-        question: 'What is your professional experience level?',
+        question: 'What is your experience level?',
         type: 'radio',
         options: [
           'Student/Entry Level',
@@ -258,14 +258,29 @@ export default function SurveyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8 relative overflow-hidden">
+      {/* Decorative snowflakes */}
+      <div className="absolute inset-0 pointer-events-none">
+        <Snowflake className="absolute top-20 left-10 snowflake animate-pulse" size={16} />
+        <Snowflake className="absolute top-40 right-20 snowflake animate-pulse delay-1000" size={12} />
+        <Snowflake className="absolute bottom-20 left-1/4 snowflake animate-pulse delay-2000" size={20} />
+        <Snowflake className="absolute bottom-40 right-1/3 snowflake animate-pulse delay-1500" size={14} />
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <div className="text-center mb-10">
+          <div className="flex justify-center mb-4">
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg">
+              <Sparkles className="inline-block w-4 h-4 mr-2" />
+              Step {currentStep + 1} of {surveySteps.length}
+            </div>
+          </div>
+          
+          <h1 className="text-4xl font-bold winter-text mb-4">
             {currentStepData.title}
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-xl winter-subtitle leading-relaxed">
             {currentStepData.description}
           </p>
         </div>
@@ -277,9 +292,9 @@ export default function SurveyPage() {
         />
 
         {/* Survey Form */}
-        <div className="card">
+        <div className="winter-card">
           <form onSubmit={(e) => e.preventDefault()}>
-            <div className="space-y-8">
+            <div className="space-y-10">
               {currentStepData.questions.map((question) => (
                 <QuestionField
                   key={question.id}
@@ -297,9 +312,9 @@ export default function SurveyPage() {
                 type="button"
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                className="btn-secondary disabled:opacity-50 disabled:cursor-not-allowed flex items-center group"
               >
-                <ArrowLeft className="mr-2 h-4 w-4" />
+                <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform duration-200" />
                 Previous
               </button>
 
@@ -307,17 +322,26 @@ export default function SurveyPage() {
                 type="button"
                 onClick={handleNext}
                 disabled={isSubmitting}
-                className="btn-primary flex items-center"
+                className="btn-primary flex items-center group"
               >
                 {currentStep === surveySteps.length - 1 ? (
                   <>
-                    {isSubmitting ? 'Submitting...' : 'Submit Survey'}
-                    <Check className="ml-2 h-4 w-4" />
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        Submit Survey
+                        <Check className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
+                      </>
+                    )}
                   </>
                 ) : (
                   <>
                     Next
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                   </>
                 )}
               </button>
@@ -326,21 +350,28 @@ export default function SurveyPage() {
         </div>
 
         {/* Step Indicators */}
-        <div className="mt-8 flex justify-center">
-          <div className="flex space-x-2">
+        <div className="mt-10 flex justify-center">
+          <div className="flex space-x-3">
             {surveySteps.map((_, index) => (
               <div
                 key={index}
-                className={`w-3 h-3 rounded-full ${
+                className={`w-4 h-4 rounded-full transition-all duration-300 ${
                   index === currentStep
-                    ? 'bg-primary-600'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg scale-110'
                     : index < currentStep
-                    ? 'bg-primary-300'
+                    ? 'bg-blue-300 shadow-md'
                     : 'bg-gray-300'
                 }`}
               />
             ))}
           </div>
+        </div>
+
+        {/* Progress Info */}
+        <div className="mt-6 text-center">
+          <p className="text-sm winter-subtitle">
+            {Math.round(((currentStep + 1) / surveySteps.length) * 100)}% Complete
+          </p>
         </div>
       </div>
     </div>

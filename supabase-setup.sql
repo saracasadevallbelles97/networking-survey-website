@@ -24,7 +24,11 @@ ALTER TABLE survey_responses ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow anonymous inserts" ON survey_responses
   FOR INSERT WITH CHECK (true);
 
--- Create policy to allow reads for authenticated users (optional, for admin dashboard)
+-- Create policy to allow anonymous reads (for admin dashboard)
+CREATE POLICY "Allow anonymous reads" ON survey_responses
+  FOR SELECT USING (true);
+
+-- Create policy to allow authenticated reads (optional, for admin dashboard)
 CREATE POLICY "Allow authenticated reads" ON survey_responses
   FOR SELECT USING (auth.role() = 'authenticated');
 

@@ -1,6 +1,19 @@
-export default function DemoModeIndicator() {
-  const isDemoMode = !process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+'use client'
 
+import { useState, useEffect } from 'react'
+
+export default function DemoModeIndicator() {
+  const [isDemoMode, setIsDemoMode] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    const demoMode = !process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    setIsDemoMode(demoMode)
+  }, [])
+
+  // Don't render anything until the component is mounted on the client
+  if (!mounted) return null
   if (!isDemoMode) return null
 
   return (

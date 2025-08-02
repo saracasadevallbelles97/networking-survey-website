@@ -19,14 +19,20 @@ export default function AdminPage() {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchData = async () => {
     try {
+      console.log('Fetching data from Supabase...')
+      console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL)
+      console.log('Supabase Key exists:', !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+      
       const { data, error } = await supabase
         .from('survey_responses')
         .select('*')
         .order('created_at', { ascending: false })
+
+      console.log('Supabase response:', { data, error })
 
       if (error) throw error
 
